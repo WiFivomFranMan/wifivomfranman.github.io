@@ -1,5 +1,14 @@
 {
-  "version": "26.0.3-rc.1",
-  "release_url": "https://github.com/WiFivomFranMan/spool/releases/tag/v26.0.3-rc.1",
-  "notes_url": "https://github.com/WiFivomFranMan/spool/releases/tag/v26.0.3-rc.1"
+  "version": "26.1.0-rc.2",
+  "release_url": "https://github.com/WiFivomFranMan/spool/releases",
+  "notes_url": "https://github.com/WiFivomFranMan/spool/releases",
+  "_comment": "DEMO/TEST feed: version label is bumped so an installed 26.1.0-rc.1 sees an update and can exercise Download & Install. The macOS asset is the REAL notarized 26.1.0-rc.1 DMG (sha256 matches). Set version to the true build once a real newer RC is published, or revert to 26.1.0-rc.1 to show 'up to date'.",
+  "platforms": {
+    "macos": {
+      "download_url": "https://wifivomfranman.github.io/spool/Spool-26.1.0-rc.1.dmg",
+      "sha256": "c4eb39287400a223ae0819ad53c2680022616ea59d4d2341144aee97bbf1b1c7",
+      "size_bytes": 7827464,
+      "asset_name": "Spool-26.1.0-rc.1.dmg"
+    }
+  }
 }
