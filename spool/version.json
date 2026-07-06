@@ -1,14 +1,14 @@
 {
   "version": "26.1.0-rc.2",
-  "release_url": "https://github.com/WiFivomFranMan/spool/releases",
-  "notes_url": "https://github.com/WiFivomFranMan/spool/releases",
-  "_comment": "DEMO/TEST feed: version label is bumped so an installed 26.1.0-rc.1 sees an update and can exercise Download & Install. Assets are the REAL signed 26.1.0-rc.1 installers (macOS notarized, Windows Tech2Win-signed; sha256 match). Set version to the true build when a real newer RC is published, or revert to 26.1.0-rc.1 to show 'up to date'.",
+  "release_url": "https://github.com/WiFivomFranMan/spool/releases/tag/v26.1.0-rc.2",
+  "notes_url": "https://github.com/WiFivomFranMan/spool/releases/tag/v26.1.0-rc.2",
+  "_comment": "26.1.0-rc.2 is a real release. macOS asset is the real notarized rc.2 DMG. Windows asset is still the rc.1 exe (labeled rc.2) until Rob's rc.2 Windows installer is built + hosted; update the windows block then.",
   "platforms": {
     "macos": {
-      "download_url": "https://wifivomfranman.github.io/spool/Spool-26.1.0-rc.1.dmg",
-      "sha256": "c4eb39287400a223ae0819ad53c2680022616ea59d4d2341144aee97bbf1b1c7",
-      "size_bytes": 7827464,
-      "asset_name": "Spool-26.1.0-rc.1.dmg"
+      "download_url": "https://wifivomfranman.github.io/spool/Spool-26.1.0-rc.2.dmg",
+      "sha256": "b96e19f4a8ab7608948db283736782610097c6a1c354560059cf11168a3f6dbe",
+      "size_bytes": 7830788,
+      "asset_name": "Spool-26.1.0-rc.2.dmg"
     },
     "windows": {
       "download_url": "https://wifivomfranman.github.io/spool/spool-setup-26.1.0-rc.1.exe",
