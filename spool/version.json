@@ -1,20 +1,14 @@
 {
-  "version": "26.1.0-rc.2",
-  "release_url": "https://github.com/WiFivomFranMan/spool/releases/tag/v26.1.0-rc.2",
-  "notes_url": "https://github.com/WiFivomFranMan/spool/releases/tag/v26.1.0-rc.2",
-  "_comment": "26.1.0-rc.2 is a real release. macOS asset is the real notarized rc.2 DMG. Windows asset is the rc.2 installer, self-signed (real Authenticode signature + timestamp; untrusted self-signed chain, so SmartScreen still warns).",
+  "version": "26.1.0-rc.3",
+  "release_url": "https://github.com/WiFivomFranMan/spool/releases/tag/v26.1.0-rc.3",
+  "notes_url": "https://github.com/WiFivomFranMan/spool/releases/tag/v26.1.0-rc.3",
+  "_comment": "26.1.0-rc.3 ships Windows first. The installer is self-signed (real Authenticode signature + timestamp; untrusted self-signed chain, so SmartScreen still warns). No macOS entry yet: the rc.3 DMG is pending; Kevin adds the macos platform block when it is built. Mac testers stay on the still-hosted rc.2 DMG until then.",
   "platforms": {
-    "macos": {
-      "download_url": "https://wifivomfranman.github.io/spool/Spool-26.1.0-rc.2.dmg",
-      "sha256": "b96e19f4a8ab7608948db283736782610097c6a1c354560059cf11168a3f6dbe",
-      "size_bytes": 7830788,
-      "asset_name": "Spool-26.1.0-rc.2.dmg"
-    },
     "windows": {
-      "download_url": "https://wifivomfranman.github.io/spool/spool-setup-26.1.0-rc.2.exe",
-      "sha256": "6acf7ad714659885ac6017367bfd79f852a7d9eb3e5a7a59de4aa748c07a2ee7",
-      "size_bytes": 9618312,
-      "asset_name": "spool-setup-26.1.0-rc.2.exe"
+      "download_url": "https://wifivomfranman.github.io/spool/spool-setup-26.1.0-rc.3.exe",
+      "sha256": "f6980208d8a73dfb68fd5235c9c5a6d388e36dc36467451f27b5b1a052c5b073",
+      "size_bytes": 9678256,
+      "asset_name": "spool-setup-26.1.0-rc.3.exe"
     }
   }
 }
