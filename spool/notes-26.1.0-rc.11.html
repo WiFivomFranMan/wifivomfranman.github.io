@@ -1,0 +1,73 @@
+<!doctype html><meta charset=utf-8>
+<title>Spool 26.1.0-rc.11 - release notes</title>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<style>
+  :root { color-scheme: light dark; }
+  body { max-width: 46rem; margin: 2rem auto; padding: 0 1.25rem;
+         font: 16px/1.6 system-ui, -apple-system, Segoe UI, sans-serif; }
+  h1 { font-size: 1.6rem; margin-bottom: .25rem; }
+  h2 { font-size: 1.15rem; margin-top: 2rem; }
+  .sub { opacity: .7; margin-top: 0; }
+  .dl { display: inline-block; margin: 1rem 0; padding: .6rem 1rem;
+        border: 1px solid currentColor; border-radius: .4rem; text-decoration: none; }
+  .note { opacity: .8; font-size: .95rem; border-left: 3px solid currentColor;
+          padding-left: .85rem; margin: 1.5rem 0; }
+  code { font-size: .9em; }
+</style>
+
+<h1>Spool 26.1.0-rc.11</h1>
+<p class=sub>Windows. Fixes the update prompt in rc.10 &mdash; if you are on rc.10, this is the build to take.</p>
+
+<p><a class=dl href="spool-setup-26.1.0-rc.11.exe">Download the installer</a></p>
+
+<p class=note>The installer is <strong>self-signed</strong>, so Windows SmartScreen warns on first run.
+Choose <strong>More info &rarr; Run anyway</strong>.</p>
+
+<h2>The update prompt is usable again</h2>
+<p>In rc.10 the &ldquo;Update Available&rdquo; dialog laid its <strong>Download &amp; Install</strong> button past
+the window edge &mdash; visible, but with its click area outside the window, so it could not be pressed
+or even highlighted. The prompt told you an update existed and gave you no way to accept it. The
+buttons now sit on two rows and all four are reachable.</p>
+<p>Also fixed: <strong>View release notes</strong> and <strong>Open Releases Page</strong> pointed at the app's
+GitHub repository, which is private, so both returned a 404 for anyone without repository access.
+They now open a public notes page &mdash; this one.</p>
+
+<h2>Everything from rc.5 through rc.10</h2>
+<p>This is still the first stretch of work published since rc.4, so if you are coming from there:</p>
+
+<h3>1984-86 two-chip ECUs (new)</h3>
+<p>Spool opens and safely saves the 8&nbsp;KiB calibrations from 1984-86 Turbo&nbsp;I logic modules,
+the generation that splits its calibration across two chips.</p>
+<ul>
+  <li><strong>Saving is correct.</strong> These ECUs check their calibration differently from
+      1987-and-later cals: there is no stored checksum byte, and the ECU sums both chips into one
+      total. Earlier builds applied the newer scheme, which wrote to a filler byte, broke the real
+      checksum, and still reported &ldquo;checksum ok&rdquo;.</li>
+  <li><strong>A definition for the '85 Direct Connection intercooled cal (118)</strong> ships with the
+      app, so a bare <code>.bin</code> with no sidecar opens with its tables named and grouped.</li>
+  <li><strong>129 of that definition's tables carry real engineering units</strong> read out of the
+      disassembly rather than raw 0-255 counts: spark advance in degrees against MAP in psi, and
+      thresholds in rpm, volts, degrees F and seconds.</li>
+  <li>Four spark and fuel curves were stored signed but described as unsigned, so high-boost
+      <strong>retard displayed as a large positive advance</strong>. Corrected.</li>
+</ul>
+
+<h3>V6 definitions</h3>
+<ul>
+  <li>The naturally-aspirated 3.0 V6 definitions had been built against a turbo symbol file and
+      described boost hardware the engine does not have. Those are corrected or held back.</li>
+  <li>WOT and part-throttle spark curves are labelled in rpm and degrees.</li>
+  <li>MAP axis ranges corrected.</li>
+</ul>
+
+<h3>Safeguards</h3>
+<ul>
+  <li>The definition builder refuses to ship a definition whose tables do not decode where it claims
+      they are.</li>
+  <li>Spool warns when a template does not fit the bin it was opened with.</li>
+</ul>
+
+<h2>macOS</h2>
+<p>Not part of this release. Mac testers stay on the still-hosted rc.2 DMG until the next build.</p>
+
+<p style="margin-top:2.5rem"><a href="./">All Spool updates</a></p>

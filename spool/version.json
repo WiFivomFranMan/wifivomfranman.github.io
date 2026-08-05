@@ -1,14 +1,14 @@
 {
-  "version": "26.1.0-rc.10",
-  "release_url": "https://wifivomfranman.github.io/spool/notes-26.1.0-rc.10.html",
-  "notes_url": "https://wifivomfranman.github.io/spool/notes-26.1.0-rc.10.html",
-  "_comment": "26.1.0-rc.10 ships Windows first, and is the first public build since rc.4 (rc.5 through rc.9 were local only). The installer is self-signed (real Authenticode signature + timestamp; untrusted self-signed chain, so SmartScreen still warns). release_url/notes_url point at a PUBLIC notes page on this host, not at the GitHub release: the app repo is private, so a release URL 404s for every tester and for anyone signed out. No macOS entry yet: the rc.3 onward DMGs are all pending; Kevin adds the macos platform block when one is built. Mac testers stay on the still-hosted rc.2 DMG until then.",
+  "version": "26.1.0-rc.11",
+  "release_url": "https://wifivomfranman.github.io/spool/notes-26.1.0-rc.11.html",
+  "notes_url": "https://wifivomfranman.github.io/spool/notes-26.1.0-rc.11.html",
+  "_comment": "26.1.0-rc.11 is Windows only and fixes the rc.10 update dialog, whose Download & Install button was laid out past the window edge and so could not be clicked. The installer is self-signed (real Authenticode signature + timestamp; untrusted self-signed chain, so SmartScreen still warns). release_url/notes_url point at a PUBLIC notes page on this host, not at the GitHub release: the app repo is private, so a release URL 404s for every tester and for anyone signed out. No macOS entry yet; Kevin adds the macos platform block when a DMG is built. Mac testers stay on the still-hosted rc.2 DMG until then.",
   "platforms": {
     "windows": {
-      "download_url": "https://wifivomfranman.github.io/spool/spool-setup-26.1.0-rc.10.exe",
-      "sha256": "c10156185fd4a9ab225973f1392ddcadb3305afd24a25429c6f0bf9a2eb3eb58",
-      "size_bytes": 9776440,
-      "asset_name": "spool-setup-26.1.0-rc.10.exe"
+      "download_url": "https://wifivomfranman.github.io/spool/spool-setup-26.1.0-rc.11.exe",
+      "sha256": "626db225dbf2ad815c3003fef9b062689d8971ec6648dcb3a60edebe6b28478a",
+      "size_bytes": 9776312,
+      "asset_name": "spool-setup-26.1.0-rc.11.exe"
     }
   }
 }
