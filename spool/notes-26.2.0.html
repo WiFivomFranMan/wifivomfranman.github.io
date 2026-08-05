@@ -1,0 +1,78 @@
+<!doctype html><meta charset=utf-8>
+<title>Spool 26.2.0 - release notes</title>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<style>
+  :root { color-scheme: light dark; }
+  body { max-width: 46rem; margin: 2rem auto; padding: 0 1.25rem;
+         font: 16px/1.6 system-ui, -apple-system, Segoe UI, sans-serif; }
+  h1 { font-size: 1.6rem; margin-bottom: .25rem; }
+  h2 { font-size: 1.15rem; margin-top: 2rem; }
+  h3 { font-size: 1rem; margin-top: 1.5rem; }
+  .sub { opacity: .7; margin-top: 0; }
+  .dl { display: inline-block; margin: .4rem .5rem .4rem 0; padding: .6rem 1rem;
+        border: 1px solid currentColor; border-radius: .4rem; text-decoration: none; }
+  .note { opacity: .8; font-size: .95rem; border-left: 3px solid currentColor;
+          padding-left: .85rem; margin: 1.5rem 0; }
+  code { font-size: .9em; }
+</style>
+
+<h1>Spool 26.2.0</h1>
+<p class=sub>Spool now tells you which table map a calibration is using &mdash; and lets you
+switch when there is more than one.</p>
+
+<p>
+  <a class=dl href="spool-setup-26.2.0.exe">Download for Windows</a>
+</p>
+
+<p class=note><strong>Windows only.</strong> There is no macOS build for 26.2.0 yet; Mac users
+should stay on <a href="notes-26.1.0.html">26.1.0</a> until a signed DMG is published.<br>
+<strong>Windows</strong> is self-signed, so SmartScreen warns on first run: choose
+<em>More info</em> &rarr; <em>Run anyway</em>.</p>
+
+<h2>Which table map am I looking at?</h2>
+
+<p>Spool finds a calibration's table definitions in one of four places, and until now it picked
+the first one silently. The header now says which:</p>
+
+<ul>
+  <li><code>Template: mycal.tbl</code> &mdash; a definition file sitting next to the bin</li>
+  <li><code>Factory def &middot; 85_22_t1_118_DC_IC</code> &mdash; the library built into Spool</li>
+  <li><code>Factory def (unverified) &middot; ...</code> &mdash; a close match Spool offered and you
+      accepted, which has <em>not</em> been checked against your bin</li>
+</ul>
+
+<h2>Switching between them</h2>
+
+<p>When a bin has a definition file beside it <em>and</em> Spool's built-in library also
+recognises it, the header adds <strong>&middot; factory def available</strong>. Click that
+&mdash; or use <strong>File &rarr; Reload using factory def</strong> &mdash; to reopen the
+calibration against the other map. The same works in reverse.</p>
+
+<h3>Why this matters</h3>
+
+<p>A definition file next to the bin has always quietly won over Spool's built-in library. If the
+two disagreed, you saw the older one and had no way to tell, because the table tree looks
+identical either way.</p>
+
+<p>This caught us during the 1985 Turbo I definition work: 165 freshly corrected table names
+simply did not appear, because the bin was opened from a folder that had an older <code>.tbl</code>
+beside it. Confirming it meant copying the bin somewhere empty.</p>
+
+<h3>Neither one is treated as "correct"</h3>
+
+<p>Spool does not recommend one over the other, because the built-in library is not reliably the
+better answer &mdash; some hand-written definition files are more accurate, yours may carry
+corrections the shipped library does not have, and it may simply be newer. Both are offered; the
+choice is yours.</p>
+
+<h3>Switching reopens the file</h3>
+
+<p>The two maps can disagree about where tables live, not just what they are called, so Spool
+reopens the calibration rather than swapping the map underneath it. Unsaved edits are confirmed
+before being discarded, and a loaded comparison is closed &mdash; it was opened against the old
+map, so comparing across a switch would be meaningless. The option is unavailable while a project
+is open, since a project carries its own definitions.</p>
+
+<p class=note>Everything in this build was verified on the machine that built it: formatting,
+lints, the full test suite, the interface-glyph check, and a release build driven through the
+switch by hand on a real calibration.</p>
