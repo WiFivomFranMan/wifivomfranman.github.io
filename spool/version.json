@@ -1,14 +1,20 @@
 {
-  "version": "26.1.0-rc.11",
-  "release_url": "https://wifivomfranman.github.io/spool/notes-26.1.0-rc.11.html",
-  "notes_url": "https://wifivomfranman.github.io/spool/notes-26.1.0-rc.11.html",
-  "_comment": "26.1.0-rc.11 is Windows only and fixes the rc.10 update dialog, whose Download & Install button was laid out past the window edge and so could not be clicked. The installer is self-signed (real Authenticode signature + timestamp; untrusted self-signed chain, so SmartScreen still warns). release_url/notes_url point at a PUBLIC notes page on this host, not at the GitHub release: the app repo is private, so a release URL 404s for every tester and for anyone signed out. No macOS entry yet; Kevin adds the macos platform block when a DMG is built. Mac testers stay on the still-hosted rc.2 DMG until then.",
+  "version": "26.1.0",
+  "release_url": "https://wifivomfranman.github.io/spool/notes-26.1.0.html",
+  "notes_url": "https://wifivomfranman.github.io/spool/notes-26.1.0.html",
   "platforms": {
+    "macos": {
+      "download_url": "https://wifivomfranman.github.io/spool/Spool-26.1.0.dmg",
+      "sha256": "091b1856f808baf1a2b20906340c00b83322d1e14e91496bb813f7b671f7975a",
+      "size_bytes": 8133331,
+      "asset_name": "Spool-26.1.0.dmg"
+    },
     "windows": {
-      "download_url": "https://wifivomfranman.github.io/spool/spool-setup-26.1.0-rc.11.exe",
-      "sha256": "626db225dbf2ad815c3003fef9b062689d8971ec6648dcb3a60edebe6b28478a",
-      "size_bytes": 9776312,
-      "asset_name": "spool-setup-26.1.0-rc.11.exe"
+      "download_url": "https://wifivomfranman.github.io/spool/spool-setup-26.1.0.exe",
+      "sha256": "07ee69259e7bbf46298887f70749d404a1e5a65c1feb4491bf9f1b571344a0a7",
+      "size_bytes": 9662200,
+      "asset_name": "spool-setup-26.1.0.exe"
     }
-  }
+  },
+  "_comment": "26.1.0 is the first final release and the first macOS build since 26.1.0-rc.2 (early July) -- Mac users were three months of work behind with no in-app download path, because no macos platform block had ever been published. release_url/notes_url deliberately point at the PUBLIC notes page on this host, not at the GitHub release: the app repo is private, so a release URL 404s for every tester. macOS is Developer-ID signed + Apple-notarized + stapled; Windows is self-signed (real Authenticode + DigiCert timestamp) so SmartScreen still warns."
 }

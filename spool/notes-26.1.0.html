@@ -1,0 +1,85 @@
+<!doctype html><meta charset=utf-8>
+<title>Spool 26.1.0 - release notes</title>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<style>
+  :root { color-scheme: light dark; }
+  body { max-width: 46rem; margin: 2rem auto; padding: 0 1.25rem;
+         font: 16px/1.6 system-ui, -apple-system, Segoe UI, sans-serif; }
+  h1 { font-size: 1.6rem; margin-bottom: .25rem; }
+  h2 { font-size: 1.15rem; margin-top: 2rem; }
+  h3 { font-size: 1rem; margin-top: 1.5rem; }
+  .sub { opacity: .7; margin-top: 0; }
+  .dl { display: inline-block; margin: .4rem .5rem .4rem 0; padding: .6rem 1rem;
+        border: 1px solid currentColor; border-radius: .4rem; text-decoration: none; }
+  .note { opacity: .8; font-size: .95rem; border-left: 3px solid currentColor;
+          padding-left: .85rem; margin: 1.5rem 0; }
+  code { font-size: .9em; }
+</style>
+
+<h1>Spool 26.1.0</h1>
+<p class=sub>The first final release &mdash; and the first build for macOS since early July.
+Every version before this one was a release candidate.</p>
+
+<p>
+  <a class=dl href="Spool-26.1.0.dmg">Download for macOS</a>
+  <a class=dl href="spool-setup-26.1.0.exe">Download for Windows</a>
+</p>
+
+<p class=note><strong>macOS</strong> is notarized by Apple, so it opens with no warning.
+It is <strong>Apple Silicon only</strong> &mdash; Intel Macs are not supported.<br>
+<strong>Windows</strong> is self-signed, so SmartScreen warns on first run:
+choose <strong>More info &rarr; Run anyway</strong>.</p>
+
+<h2>If you are on the macOS build from July</h2>
+<p>You have been on <code>26.1.0-rc.2</code> for a month, because no Mac build was published
+between then and now &mdash; the releases in between were Windows only. Everything below is new
+to you.</p>
+
+<h2>Calibrations are identified for you</h2>
+<p>Open a factory <code>.bin</code> and Spool recognises it by fingerprint and names its tables
+automatically. No hunting for the matching template.</p>
+<p>The definitions are read out of the disassembled code rather than guessed, and each one is
+checked against the calibration before it ships: a definition whose tables are not where it claims
+is refused. That check rejected several of our own definitions during development rather than let
+them mislabel your data.</p>
+<p>Where a value has no real-world unit &mdash; a counter, a bitmask, a pulse count &mdash; it is
+left without one on purpose, instead of being given a plausible-looking scale that would be wrong.</p>
+
+<h3>1984-86 two-chip ECUs</h3>
+<p>Spool opens and safely saves the 8&nbsp;KiB calibrations from 1984-86 Turbo&nbsp;I logic modules,
+the generation that splits its calibration across two chips and sums both into one checksum.</p>
+
+<h3>'85 Turbo I</h3>
+<p>165 tables in the '85 Turbo&nbsp;I definition now carry information derived from the code, up
+from 25 &mdash; including the wastegate duty scale, which is out of 200 rather than 255. Read the
+old way, the maximum-boost clamp appeared as 69% when it is really 88%.</p>
+
+<h2>The application</h2>
+<p><strong>Separate windows</strong> for Cal Explorer, Log Viewer, Diagnostics, Flasher and Live
+Logger, each with its own menus, each remembering where you left it.</p>
+<p><strong>Undo, redo and change review</strong> &mdash; see what you changed, revert a single cell,
+and compare against the original in the editor.</p>
+<p><strong>Updates from inside the app.</strong> Spool checks for a new version, downloads it, and
+verifies the download before opening it.</p>
+
+<h3>Appearance</h3>
+<p>Fields and buttons now line up on a shared centreline instead of being different heights, and
+they are sized the same way on both platforms. The green accent now marks the primary action, the
+field you are typing in, and the current selection &mdash; previously it appeared almost nowhere.</p>
+
+<h3>macOS 26 fix</h3>
+<p>On macOS 26 and later the title bar rendered as clear glass, showing the desktop through it and
+leaving the window title unreadable. Fixed.</p>
+
+<h2>Known issues</h2>
+<p><strong>Spool does not tell you which template it used.</strong> If a <code>.tbl</code> file sits
+next to your <code>.bin</code> with the same name, that file wins over the built-in definition
+library and you get the older names, with nothing on screen indicating a choice was made. If names
+look wrong, copy the <code>.bin</code> to an empty folder and open it from there. A fix is in
+progress.</p>
+<p><strong>macOS is Apple Silicon only.</strong> Intel Macs are not supported.</p>
+<p>Dropdowns, checkboxes and sliders still use the operating system's own styling and look slightly
+different from the rest of the controls.</p>
+
+<p class=note>Found something wrong? The calibration data matters more than the app &mdash; if a
+table looks mislabelled or a value decodes oddly, please say so, with the calibration ID.</p>
