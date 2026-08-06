@@ -1,0 +1,75 @@
+<!doctype html><meta charset=utf-8>
+<title>Spool 26.2.1 - release notes</title>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<style>
+  :root { color-scheme: light dark; }
+  body { max-width: 46rem; margin: 2rem auto; padding: 0 1.25rem;
+         font: 16px/1.6 system-ui, -apple-system, Segoe UI, sans-serif; }
+  h1 { font-size: 1.6rem; margin-bottom: .25rem; }
+  h2 { font-size: 1.15rem; margin-top: 2rem; }
+  h3 { font-size: 1rem; margin-top: 1.5rem; }
+  .sub { opacity: .7; margin-top: 0; }
+  .dl { display: inline-block; margin: .4rem .5rem .4rem 0; padding: .6rem 1rem;
+        border: 1px solid currentColor; border-radius: .4rem; text-decoration: none; }
+  .note { opacity: .8; font-size: .95rem; border-left: 3px solid currentColor;
+          padding-left: .85rem; margin: 1.5rem 0; }
+  code { font-size: .9em; }
+</style>
+
+<h1>Spool 26.2.1</h1>
+<p class=sub>A bug fix: the Flasher window could reopen too small to reach its Connect
+button.</p>
+
+<p>
+  <a class=dl href="spool-setup-26.2.1.exe">Download for Windows</a>
+</p>
+
+<p class=note><strong>Windows only.</strong> There is no macOS build for 26.2.1; Mac users
+should stay on <a href="notes-26.1.0.html">26.1.0</a> until a signed DMG is published.<br>
+<strong>Windows</strong> is self-signed, so SmartScreen warns on first run: choose
+<em>More info</em> &rarr; <em>Run anyway</em>.</p>
+
+<h2>The Flasher could open with Connect unreachable</h2>
+
+<p>In the Flasher window, the <strong>Connect</strong> button could render as a single clipped
+letter at the right edge of the connection row &mdash; or be pushed off the window entirely.
+With Connect unreachable, the window could not do the one thing it exists for.</p>
+
+<p>Widening the window by hand brought the button back, but nothing indicated that was the
+problem, so the window simply looked broken.</p>
+
+<h3>Why it kept happening</h3>
+
+<p>Spool remembers each window's size between sessions. The Flasher's remembered size was
+smaller than its contents actually need, and that saved size was being restored without being
+checked against the window's own minimum. So every launch reopened it at the same unusable
+width, and resizing it did not stick.</p>
+
+<h3>What changed</h3>
+
+<ul>
+  <li>The Flasher's minimum width now covers its full connection row.</li>
+  <li><strong>Every</strong> window that remembers its size is now clamped to that window's
+      minimum when restored, so a too-small saved size cannot come back.</li>
+</ul>
+
+<p>The second point is the one that actually fixes it, and it applies to all six tool windows
+that remember their geometry &mdash; the Flasher was simply the one where a control happened to
+sit at the clipped edge. If you had the Flasher open small, it reopens wider on this build.</p>
+
+<h3>Nothing about flashing itself changed</h3>
+
+<p>The write safeguards are untouched. A destructive write still requires all three: a
+checksum-valid bin, a ROM backup saved in that session, and the confirmation box ticked. The
+read-only ROM pull remains the recommended first step, and the reminder that this path is not
+hardware-verified is still shown.</p>
+
+<h2>Housekeeping</h2>
+
+<p>Contributor documentation now describes one consistent local check, separated into a fast
+pre-push gate and a fuller pre-release gate. This has no effect on the application.</p>
+
+<p class=note>Verified on the machine that built it: formatting, lints, the full workspace test
+suite (24 suites, 330 tests), the interface-glyph check, and a signed release build driven by
+hand &mdash; the Flasher window was reopened from the previously broken saved size and measured
+to confirm Connect renders in full.</p>
