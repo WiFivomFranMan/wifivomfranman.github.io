@@ -1,0 +1,81 @@
+<!doctype html><meta charset=utf-8>
+<title>Spool 26.3.0 - release notes</title>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<style>
+  :root { color-scheme: light dark; }
+  body { max-width: 46rem; margin: 2rem auto; padding: 0 1.25rem;
+         font: 16px/1.6 system-ui, -apple-system, Segoe UI, sans-serif; }
+  h1 { font-size: 1.6rem; margin-bottom: .25rem; }
+  h2 { font-size: 1.15rem; margin-top: 2rem; }
+  h3 { font-size: 1rem; margin-top: 1.5rem; }
+  .sub { opacity: .7; margin-top: 0; }
+  .dl { display: inline-block; margin: .4rem .5rem .4rem 0; padding: .6rem 1rem;
+        border: 1px solid currentColor; border-radius: .4rem; text-decoration: none; }
+  .note { opacity: .8; font-size: .95rem; border-left: 3px solid currentColor;
+          padding-left: .85rem; margin: 1.5rem 0; }
+  code { font-size: .9em; }
+</style>
+
+<h1>Spool 26.3.0</h1>
+<p class=sub>Keyboard editing for curve plot points, and a nav tree fix for
+def-library calibrations that nest tables more than two levels deep.</p>
+
+<p>
+  <a class=dl href="spool-setup-26.3.0.exe">Download for Windows</a>
+</p>
+
+<p class=note><strong>Windows only.</strong> There is no macOS build for 26.3.0; Mac users
+should stay on <a href="notes-26.1.0.html">26.1.0</a> until a signed DMG is published.<br>
+<strong>Windows</strong> is self-signed, so SmartScreen warns on first run: choose
+<em>More info</em> &rarr; <em>Run anyway</em>.</p>
+
+<h2>Keyboard editing for curve plot points</h2>
+
+<p>Editing a curve breakpoint used to mean a mouse drag, full stop. Click a point in the
+plot to select it &mdash; the marker grows to show it's active &mdash; and now the
+keyboard does the rest:</p>
+
+<ul>
+  <li><strong>Up / Down</strong> nudge the point's value by the smallest storage step.</li>
+  <li><strong>Left / Right</strong> move the point's breakpoint along the x axis, by the
+      same smallest step.</li>
+  <li><strong>Shift</strong> held with any of those takes a bigger, 10-step jump.</li>
+  <li><strong>Ctrl (Cmd on Mac) + Left / Right</strong> move the selection itself to the
+      previous or next point, with no mouse click needed.</li>
+</ul>
+
+<h3>Moving a breakpoint is deliberately conservative</h3>
+
+<p>A curve's breakpoints have to stay in ascending order &mdash; the interpolation math,
+and almost certainly the ECU's own lookup routine, both assume it. Letting a breakpoint
+nudge past or land on top of a neighboring point wouldn't just look odd on screen, it
+would silently change what the curve means. So an x nudge is clamped to stop one storage
+count short of whichever neighbor it's approaching, every time, rather than trusting the
+user not to overshoot.</p>
+
+<h2>Nav tree: def-library cals with deep table groups</h2>
+
+<p>Some factory calibrations organize their tables three or four levels deep (for
+example, Boost Control &rarr; WG Control &rarr; T1 WG Control &rarr; T1 WGDC Lookup).
+The nav tree was only ever built for two levels, so anything nested deeper collapsed
+into one very long, very flat list of top-level categories &mdash; one calibration
+showed 72 of them where 7 or 8 was the intended shape.</p>
+
+<p>The tree now nests as deep as a calibration actually declares. This also folds a
+couple of duplicate spellings the def library had accumulated for the same bucket
+(<code>Utility</code> and <code>Aux Functions</code> meaning the same thing, plus a
+couple of literal typos) so they render as one category instead of two.</p>
+
+<h2>Housekeeping</h2>
+
+<p>Fixed a small, newly-exposed bug alongside the breakpoint work: the changed-value
+list's &ldquo;was &hellip;&rdquo; caption was always built from the old <em>value</em>,
+even on a row that changed only because its <em>breakpoint</em> moved &mdash; which read
+as a value edit that never happened. It only became possible to see once a breakpoint
+could move on its own.</p>
+
+<p class=note>Verified on the machine that built it: formatting, lints, the full
+workspace test suite (24 suites, 339 tests), the interface-glyph check, and a
+signed release build driven by hand &mdash; clicking a point, nudging it in all four
+directions, reselecting with Ctrl+arrow, and pushing a breakpoint hard against its
+neighbor to confirm the clamp holds rather than crossing it.</p>
