@@ -1,5 +1,29 @@
-<!doctype html><meta charset=utf-8><title>Spool updates</title>
+<!doctype html><meta charset=utf-8>
+<title>Spool updates</title>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<style>
+  :root { color-scheme: light dark; }
+  body { max-width: 46rem; margin: 2rem auto; padding: 0 1.25rem;
+         font: 16px/1.6 system-ui, -apple-system, Segoe UI, sans-serif; }
+  h1 { font-size: 1.6rem; margin-bottom: .25rem; }
+  .sub { opacity: .7; margin-top: 0; }
+  .rel { margin: 1.25rem 0 .35rem; }
+  .prev { opacity: .8; font-size: .95rem; }
+  .feed { opacity: .7; font-size: .9rem; margin-top: 2rem; }
+  code { font-size: .9em; }
+</style>
+
 <h1>Spool update feed</h1>
-<p>Latest: <a href="notes-26.4.0.html">26.4.0 release notes</a> (Windows)</p>
-<p>Previous: <a href="notes-26.3.0.html">26.3.0</a> &middot; <a href="notes-26.2.1.html">26.2.1</a> &middot; <a href="notes-26.2.0.html">26.2.0</a> &middot; <a href="notes-26.1.0.html">26.1.0</a> (macOS + Windows)</p>
-<p><a href="version.json">version.json</a></p>
+<p class=sub>Release notes and installers for Spool.</p>
+
+<p class=rel><strong>Latest:</strong>
+  <a href="notes-26.4.0.html">26.4.0 release notes</a> (Windows)</p>
+
+<p class=prev>Previous:
+  <a href="notes-26.3.0.html">26.3.0</a> &middot;
+  <a href="notes-26.2.1.html">26.2.1</a> &middot;
+  <a href="notes-26.2.0.html">26.2.0</a> &middot;
+  <a href="notes-26.1.0.html">26.1.0</a> (macOS + Windows)</p>
+
+<p class=feed>The app reads <a href="version.json"><code>version.json</code></a> from this
+host to offer in-app updates.</p>
