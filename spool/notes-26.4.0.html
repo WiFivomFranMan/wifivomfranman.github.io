@@ -1,0 +1,77 @@
+<!doctype html><meta charset=utf-8>
+<title>Spool 26.4.0 - release notes</title>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<style>
+  :root { color-scheme: light dark; }
+  body { max-width: 46rem; margin: 2rem auto; padding: 0 1.25rem;
+         font: 16px/1.6 system-ui, -apple-system, Segoe UI, sans-serif; }
+  h1 { font-size: 1.6rem; margin-bottom: .25rem; }
+  h2 { font-size: 1.15rem; margin-top: 2rem; }
+  h3 { font-size: 1rem; margin-top: 1.5rem; }
+  .sub { opacity: .7; margin-top: 0; }
+  .dl { display: inline-block; margin: .4rem .5rem .4rem 0; padding: .6rem 1rem;
+        border: 1px solid currentColor; border-radius: .4rem; text-decoration: none; }
+  .note { opacity: .8; font-size: .95rem; border-left: 3px solid currentColor;
+          padding-left: .85rem; margin: 1.5rem 0; }
+  code { font-size: .9em; }
+</style>
+
+<h1>Spool 26.4.0</h1>
+<p class=sub>A 3D surface view for grid tables, side by side with the heatmap, with
+click-a-point to find the cell it belongs to.</p>
+
+<p>
+  <a class=dl href="spool-setup-26.4.0.exe">Download for Windows</a>
+</p>
+
+<p class=note><strong>Windows only.</strong> There is no macOS build for 26.4.0; Mac users
+should stay on <a href="notes-26.1.0.html">26.1.0</a> until a signed DMG is published.<br>
+<strong>Windows</strong> is self-signed, so SmartScreen warns on first run: choose
+<em>More info</em> &rarr; <em>Run anyway</em>.</p>
+
+<h2>3D surface view for grid tables</h2>
+
+<p>Any grid-shaped table can now be viewed as a 3D surface next to its heatmap &mdash;
+editable type-7/17 maps and read-only Calculated Tables alike. The point is spotting the
+spikes and dips in a calibration that are genuinely hard to see as a wall of numbers.</p>
+
+<p>Open a grid table and click <strong>3D View</strong> above the grid.</p>
+
+<ul>
+  <li><strong>Left-drag</strong> rotates the surface; <strong>right-drag</strong> pans it.</li>
+  <li><strong>+ / &minus;</strong> zoom, and <strong>Reset</strong> returns to the default view.</li>
+  <li><strong>Click a point on the surface</strong> and the matching cell is ringed in the 2D
+      grid beside it &mdash; so a spike you can see but not place resolves to an exact
+      RPM/MAP cell.</li>
+</ul>
+
+<p>The surface and the grid sit <strong>side by side</strong> rather than stacked, so you
+can read one against the other without either pushing the other off screen.</p>
+
+<h3>A surface, not a bar chart</h3>
+
+<p>Each cell is a vertex of one continuous shaded mesh rather than its own block, so the
+<em>slope between</em> cells is visible. That interpolation ramp is usually the thing being
+judged &mdash; a value that looks reasonable on its own can still sit on a step that isn't.</p>
+
+<p>Calculated Tables stay read-only here, exactly as they are everywhere else in the app.
+Nothing in the 3D view edits a value; it is for reading the calibration, not changing it.</p>
+
+<h2>Rendering and responsiveness</h2>
+
+<p>The view is rasterized on the CPU, with no GPU or graphics-driver dependency, so it
+renders identically on every machine rather than depending on which backend a given
+system happens to provide.</p>
+
+<p>Rotate and pan were reworked late in this cycle. Moving the camera used to rebuild the
+2D grid alongside the surface on every frame &mdash; a full repaint of all 527 cells on a
+31&times;17 table, to redraw a grid whose contents cannot change when only the camera
+moves. Camera changes now repaint the surface alone, which took the measured time between
+frames during a drag down by roughly a factor of six.</p>
+
+<p class=note>Verified on the machine that built it: formatting, lints, the full workspace
+test suite (24 suites, 330 tests), the interface-glyph check, and a signed release build
+driven by hand against a real 31&times;17 calibration table &mdash; rotating, panning,
+zooming, and clicking points on the surface to confirm the right cell rings in the grid.
+The responsiveness figure above is a measured before/after on that same table, not an
+estimate.</p>
