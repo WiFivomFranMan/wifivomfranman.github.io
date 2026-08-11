@@ -1,0 +1,41 @@
+<!doctype html><meta charset=utf-8>
+<title>Spool 26.6.1 - release notes</title>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<style>
+  :root { color-scheme: light dark; }
+  body { max-width: 46rem; margin: 2rem auto; padding: 0 1.25rem;
+         font: 16px/1.6 system-ui, -apple-system, Segoe UI, sans-serif; }
+  h1 { font-size: 1.6rem; margin-bottom: .25rem; }
+  h2 { font-size: 1.15rem; margin-top: 2rem; }
+  h3 { font-size: 1rem; margin-top: 1.5rem; }
+  .sub { opacity: .7; margin-top: 0; }
+  .dl { display: inline-block; margin: .4rem .5rem .4rem 0; padding: .6rem 1rem;
+        border: 1px solid currentColor; border-radius: .4rem; text-decoration: none; }
+  .note { opacity: .8; font-size: .95rem; border-left: 3px solid currentColor;
+          padding-left: .85rem; margin: 1.5rem 0; }
+  code { font-size: .9em; }
+</style>
+
+<h1>Spool 26.6.1</h1>
+<p class=sub>Bug fix release: the Chip Burner window no longer clips its bottom card.</p>
+
+<p>
+  <a class=dl href="spool-setup-26.6.1.exe">Download for Windows</a>
+</p>
+
+<p class=note><strong>Windows only.</strong> There is no macOS build for 26.6.1; Mac users
+should stay on <a href="notes-26.1.0.html">26.1.0</a> until a signed DMG is published.<br>
+<strong>Windows</strong> is self-signed, so SmartScreen warns on first run: choose
+<em>More info</em> &rarr; <em>Run anyway</em>.</p>
+
+<h2>Chip Burner window no longer clips its bottom card</h2>
+
+<p>The Chip Burner window (Tools &gt; Chip Burner) had no scrollbar, so at smaller window
+sizes the last card &mdash; <strong>Write Chip</strong>, including the acknowledgement
+checkbox and the Write button &mdash; could be cut off with no way to reach it. The window
+now scrolls, so every card is reachable regardless of window size.</p>
+
+<p class=note>Verified on the machine that built it: formatting, lints, the full workspace
+test suite, the interface-glyph check, and a signed release build. The scroll fix was
+confirmed by driving the real app &mdash; opening Chip Burner, shrinking it, and scrolling
+down to the previously-clipped Write Chip controls.</p>
