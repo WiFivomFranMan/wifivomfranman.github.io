@@ -1,0 +1,65 @@
+<!doctype html><meta charset=utf-8>
+<title>Spool 26.5.0 - release notes</title>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<style>
+  :root { color-scheme: light dark; }
+  body { max-width: 46rem; margin: 2rem auto; padding: 0 1.25rem;
+         font: 16px/1.6 system-ui, -apple-system, Segoe UI, sans-serif; }
+  h1 { font-size: 1.6rem; margin-bottom: .25rem; }
+  h2 { font-size: 1.15rem; margin-top: 2rem; }
+  h3 { font-size: 1rem; margin-top: 1.5rem; }
+  .sub { opacity: .7; margin-top: 0; }
+  .dl { display: inline-block; margin: .4rem .5rem .4rem 0; padding: .6rem 1rem;
+        border: 1px solid currentColor; border-radius: .4rem; text-decoration: none; }
+  .note { opacity: .8; font-size: .95rem; border-left: 3px solid currentColor;
+          padding-left: .85rem; margin: 1.5rem 0; }
+  code { font-size: .9em; }
+</style>
+
+<h1>Spool 26.5.0</h1>
+<p class=sub>The 3D surface view now draws tables to real engineering scale, and
+calculated spark tables explain what they actually show.</p>
+
+<p>
+  <a class=dl href="spool-setup-26.5.0.exe">Download for Windows</a>
+</p>
+
+<p class=note><strong>Windows only.</strong> There is no macOS build for 26.5.0; Mac users
+should stay on <a href="notes-26.1.0.html">26.1.0</a> until a signed DMG is published.<br>
+<strong>Windows</strong> is self-signed, so SmartScreen warns on first run: choose
+<em>More info</em> &rarr; <em>Run anyway</em>.</p>
+
+<h2>3D surface axes now match the calibration</h2>
+
+<p>The 3D view introduced last release spaced every column and row evenly, regardless of
+how much RPM or MAP that step actually covers. Most RPM&times;MAP tables aren't evenly
+spaced &mdash; the ECU's own breakpoints spend resolution where the calibrator needed it
+&mdash; so a table with, say, tight breakpoints below 2000&nbsp;rpm and coarse ones above
+it had that entire low-rpm range compressed into a sliver of the plot, with a visible
+crease at the handoff that wasn't really in the calibration at all.</p>
+
+<p>The mesh now follows each table's real, resolved axis values: a wide step draws wide,
+a narrow one draws narrow. Nothing about a table's stored values changed &mdash; only
+where each point sits in the 3D view, and the wireframe itself now shows you where a
+table actually carries resolution.</p>
+
+<h2>Calculated spark tables explain themselves</h2>
+
+<p><code>FullThrottleTotalTiming</code>, <code>PartThrottleTotalTiming</code>, and similar
+tables under <strong>Calculated Tables</strong> aren't stored in the ROM &mdash; Spool
+builds them from the calibration's own advance and limit curves, the same way the ECU's
+warm-engine spark routine does. Opening one now shows, in plain language, exactly what
+went into the number.</p>
+
+<p>Just as important is what's <strong>excluded</strong>: knock retard, adaptive retard,
+and the idle / start-run transfer paths are not part of this number, and a cold engine
+follows an entirely different curve that no calculated table covers. If you've been
+reading these tables as "what the engine runs," this is the correction &mdash; it's what
+the calibration <em>asks for</em> before anything downstream adjusts it.</p>
+
+<p class=note>Verified on the machine that built it: formatting, lints, the full workspace
+test suite (24 suites, 348 tests), the interface-glyph check, and a signed release build.
+Both changes were driven by hand against real calibrations &mdash; the axis fix against a
+17&times;17 T3 fuel/timing table with genuinely uneven breakpoints on both axes, and the
+explanation text against a real T-SMEC calibration, confirming the full-throttle and
+part-throttle tables each name their own MAP source correctly.</p>

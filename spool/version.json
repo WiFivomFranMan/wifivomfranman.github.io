@@ -1,14 +1,14 @@
 {
-  "version": "26.4.0",
-  "release_url": "https://wifivomfranman.github.io/spool/notes-26.4.0.html",
-  "notes_url": "https://wifivomfranman.github.io/spool/notes-26.4.0.html",
+  "version": "26.5.0",
+  "release_url": "https://wifivomfranman.github.io/spool/notes-26.5.0.html",
+  "notes_url": "https://wifivomfranman.github.io/spool/notes-26.5.0.html",
   "platforms": {
     "windows": {
-      "download_url": "https://wifivomfranman.github.io/spool/spool-setup-26.4.0.exe",
-      "sha256": "35dd8bc43da323a8bf82c2a0caceddd8565283cf237c4d704e133aec7f71ef1e",
-      "size_bytes": 9921880,
-      "asset_name": "spool-setup-26.4.0.exe"
+      "download_url": "https://wifivomfranman.github.io/spool/spool-setup-26.5.0.exe",
+      "sha256": "9f50c78b7c83433be77c9f7024cfb8553082376777f82708e61e483cbeb685bf",
+      "size_bytes": 9927888,
+      "asset_name": "spool-setup-26.5.0.exe"
     }
   },
-  "_comment": "26.4.0 is WINDOWS ONLY -- no macos block, so Mac users are told an update exists but get no in-app download and are pointed at the notes page instead. release_url/notes_url deliberately point at the PUBLIC notes page on this host, not at the GitHub release: the app repo is private, so a release URL 404s for every tester and for anyone signed out. publish-feed.sh defaults those two fields to the GitHub tag URL, so they must be corrected by hand every time. Windows is self-signed (real Authenticode + timestamp) so SmartScreen still warns."
+  "_comment": "26.5.0 is WINDOWS ONLY -- no macos block, so Mac users are told an update exists but get no in-app download and are pointed at the notes page instead. release_url/notes_url deliberately point at the PUBLIC notes page on this host, not at the GitHub release: the app repo is private, so a release URL 404s for every tester and for anyone signed out. publish-feed.sh defaults those two fields to the GitHub tag URL, so they must be corrected by hand every time. Windows is self-signed (real Authenticode + timestamp) so SmartScreen still warns."
 }
