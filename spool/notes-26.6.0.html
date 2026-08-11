@@ -1,0 +1,52 @@
+<!doctype html><meta charset=utf-8>
+<title>Spool 26.6.0 - release notes</title>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<style>
+  :root { color-scheme: light dark; }
+  body { max-width: 46rem; margin: 2rem auto; padding: 0 1.25rem;
+         font: 16px/1.6 system-ui, -apple-system, Segoe UI, sans-serif; }
+  h1 { font-size: 1.6rem; margin-bottom: .25rem; }
+  h2 { font-size: 1.15rem; margin-top: 2rem; }
+  h3 { font-size: 1rem; margin-top: 1.5rem; }
+  .sub { opacity: .7; margin-top: 0; }
+  .dl { display: inline-block; margin: .4rem .5rem .4rem 0; padding: .6rem 1rem;
+        border: 1px solid currentColor; border-radius: .4rem; text-decoration: none; }
+  .note { opacity: .8; font-size: .95rem; border-left: 3px solid currentColor;
+          padding-left: .85rem; margin: 1.5rem 0; }
+  code { font-size: .9em; }
+</style>
+
+<h1>Spool 26.6.0</h1>
+<p class=sub>A new Chip Burner window programs ECU chips over a Moates Burn2, and a
+Connect bug that could get "stuck" on the first error is fixed.</p>
+
+<p>
+  <a class=dl href="spool-setup-26.6.0.exe">Download for Windows</a>
+</p>
+
+<p class=note><strong>Windows only.</strong> There is no macOS build for 26.6.0; Mac users
+should stay on <a href="notes-26.1.0.html">26.1.0</a> until a signed DMG is published.<br>
+<strong>Windows</strong> is self-signed, so SmartScreen warns on first run: choose
+<em>More info</em> &rarr; <em>Run anyway</em>.</p>
+
+<h2>Chip Burner (Tools &gt; Chip Burner)</h2>
+
+<p>Spool can now talk to a <strong>Moates Burn2</strong> chip programmer directly:
+read a chip's contents, erase it, write a new image, and verify it came back blank
+before writing. Read, erase, write, and blank-check have each been run against real
+hardware &mdash; an SST27SF512 EPROM.</p>
+
+<h2>Connect no longer gets stuck on the first error</h2>
+
+<p>If a Connect attempt failed &mdash; wrong COM port, a chip or ECU that didn't answer
+&mdash; every later Connect click silently repeated that <em>first</em> error, even after
+switching to the correct port. The window looked ready to retry (it still showed
+"Connect", not "Disconnect"), but nothing happened. This affected both the new Chip
+Burner window and the ECU Flasher; both now retry properly.</p>
+
+<p class=note>Verified on the machine that built it: formatting, lints, the full
+workspace test suite, the interface-glyph check, and a signed release build. The Chip
+Burner's read/erase/write/verify-blank were each confirmed against a real Burn2 and a
+real SST27SF512 chip; the Connect-retry fix was reproduced and confirmed fixed against
+real Burn2 hardware, and compiles/tests clean for the Flasher side (not yet re-tested
+against a real ECU).</p>
