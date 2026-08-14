@@ -1,14 +1,14 @@
 {
-  "version": "26.6.1",
-  "release_url": "https://wifivomfranman.github.io/spool/notes-26.6.1.html",
-  "notes_url": "https://wifivomfranman.github.io/spool/notes-26.6.1.html",
+  "version": "26.7.0",
+  "release_url": "https://wifivomfranman.github.io/spool/notes-26.7.0.html",
+  "notes_url": "https://wifivomfranman.github.io/spool/notes-26.7.0.html",
   "platforms": {
     "windows": {
-      "download_url": "https://wifivomfranman.github.io/spool/spool-setup-26.6.1.exe",
-      "sha256": "a91b88e2b31d2aa036a2d312b058a80076495b30f01ca0cb8b6021a2ed1cbc4b",
-      "size_bytes": 10070744,
-      "asset_name": "spool-setup-26.6.1.exe"
+      "download_url": "https://wifivomfranman.github.io/spool/spool-setup-26.7.0.exe",
+      "sha256": "5cab41757315702c43804527719e961f326288ec8eae2ded43ea97bae66e85c3",
+      "size_bytes": 10088264,
+      "asset_name": "spool-setup-26.7.0.exe"
     }
   },
-  "_comment": "26.6.1 is WINDOWS ONLY -- no macos block, so Mac users are told an update exists but get no in-app download and are pointed at the notes page instead. release_url/notes_url deliberately point at the PUBLIC notes page on this host, not at the GitHub release: the app repo is private, so a release URL 404s for every tester and for anyone signed out. publish-feed.sh defaults those two fields to the GitHub tag URL, so they must be corrected by hand every time. Windows is self-signed (real Authenticode + timestamp) so SmartScreen still warns."
+  "_comment": "26.7.0 is WINDOWS ONLY -- no macos block, so Mac users are told an update exists but get no in-app download and are pointed at the notes page instead. release_url/notes_url deliberately point at the PUBLIC notes page on this host, not at the GitHub release: the app repo is private, so a release URL 404s for every tester and for anyone signed out. publish-feed.sh defaults those two fields to the GitHub tag URL, so they must be corrected by hand every time. Windows is self-signed (real Authenticode + timestamp) so SmartScreen still warns."
 }
