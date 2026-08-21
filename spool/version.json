@@ -1,14 +1,14 @@
 {
-  "version": "26.8.0",
-  "release_url": "https://wifivomfranman.github.io/spool/notes-26.8.0.html",
-  "notes_url": "https://wifivomfranman.github.io/spool/notes-26.8.0.html",
+  "version": "26.9.0",
+  "release_url": "https://wifivomfranman.github.io/spool/notes-26.9.0.html",
+  "notes_url": "https://wifivomfranman.github.io/spool/notes-26.9.0.html",
   "platforms": {
     "windows": {
-      "download_url": "https://wifivomfranman.github.io/spool/spool-setup-26.8.0.exe",
-      "sha256": "0094d622b42f8b5f0eb02eadd7019f5d996cbf21d1f9d24e6f491ab0deb86455",
-      "size_bytes": 10116576,
-      "asset_name": "spool-setup-26.8.0.exe"
+      "download_url": "https://wifivomfranman.github.io/spool/spool-setup-26.9.0.exe",
+      "sha256": "31c084e566c6f8348b8621e35545d5dc452ca2dbb71ed545fdfc90bdb58b48e4",
+      "size_bytes": 10163880,
+      "asset_name": "spool-setup-26.9.0.exe"
     }
   },
-  "_comment": "26.8.0 is WINDOWS ONLY -- no macos block, so Mac users are told an update exists but get no in-app download and are pointed at the notes page instead. release_url/notes_url deliberately point at the PUBLIC notes page on this host, not at the GitHub release: the app repo is private, so a release URL 404s for every tester and for anyone signed out. publish-feed.sh defaults those two fields to the GitHub tag URL, so they must be corrected by hand every time. Windows is self-signed (real Authenticode + timestamp) so SmartScreen still warns."
+  "_comment": "26.9.0 is WINDOWS ONLY -- no macos block, so Mac users are told an update exists but get no in-app download and are pointed at the notes page instead. release_url/notes_url point at the PUBLIC notes page on this host, not at the GitHub release: the app repo is private, so a release URL 404s for every tester and for anyone signed out. Since 2026-08-14 publish-feed.sh defaults both fields to this notes page, so they no longer need correcting by hand (earlier notes saying otherwise are stale); it also refuses to run when the tag disagrees with spool-ui/Cargo.toml. NOTE: publish-feed.sh does NOT carry this _comment forward -- re-add it by hand after regenerating, or the next person loses this explanation. Windows is self-signed (real Authenticode + timestamp) so SmartScreen still warns."
 }

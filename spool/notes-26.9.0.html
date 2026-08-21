@@ -1,0 +1,106 @@
+<!doctype html><meta charset=utf-8>
+<title>Spool 26.9.0 - release notes</title>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<style>
+  :root { color-scheme: light dark; }
+  body { max-width: 46rem; margin: 2rem auto; padding: 0 1.25rem;
+         font: 16px/1.6 system-ui, -apple-system, Segoe UI, sans-serif; }
+  h1 { font-size: 1.6rem; margin-bottom: .25rem; }
+  h2 { font-size: 1.15rem; margin-top: 2rem; }
+  h3 { font-size: 1rem; margin-top: 1.5rem; }
+  .sub { opacity: .7; margin-top: 0; }
+  .dl { display: inline-block; margin: .4rem .5rem .4rem 0; padding: .6rem 1rem;
+        border: 1px solid currentColor; border-radius: .4rem; text-decoration: none; }
+  .note { opacity: .8; font-size: .95rem; border-left: 3px solid currentColor;
+          padding-left: .85rem; margin: 1.5rem 0; }
+  code { font-size: .9em; }
+</style>
+
+<h1>Spool 26.9.0</h1>
+<p class=sub>Turbonator tunes open, edit and build. A <code>.tpl</code> with no
+<code>.bin</code> beside it is now a document in its own right, and Spool can assemble one
+into a flashable ROM.</p>
+
+<p>
+  <a class=dl href="spool-setup-26.9.0.exe">Download for Windows</a>
+</p>
+
+<p class=note><strong>Windows only.</strong> There is no macOS build for 26.9.0; Mac users
+should stay on <a href="notes-26.1.0.html">26.1.0</a> until a signed DMG is published.<br>
+<strong>Windows</strong> is self-signed, so SmartScreen warns on first run: choose
+<em>More info</em> &rarr; <em>Run anyway</em>.</p>
+
+<h2>Open a tune file on its own</h2>
+
+<p>A v2 <code>.tpl</code> is not just a table map &mdash; it is assembler source for the
+calibration block, so it carries the <em>values</em> as well. Spool used to read the
+definitions and throw the values away, taking bytes from the companion <code>.bin</code>.
+That left most of a Turbonator distribution unopenable: in the reference archive, 34 of 38
+tunes have no <code>.bin</code> next to them.</p>
+
+<p><strong>File &rarr; Open</strong> now accepts <code>.tpl</code> and <code>.mpt</code>.
+Every table opens with real values, fully editable, with the same grids, graphs, 3D view and
+compare you get from a <code>.bin</code>. <strong>Save</strong> writes back to the
+<code>.tpl</code>, rewriting only the value tokens &mdash; your comments, revision history and
+column alignment come through untouched.</p>
+
+<p>Pick a <code>.tpl</code> that <em>does</em> have a <code>.bin</code> beside it and Spool
+opens the pair instead, which is strictly better: a real checksum, a <code>.bin</code> to
+save, and the ECU tools.</p>
+
+<h3>A tune is not a ROM, and Spool says so</h3>
+
+<p>A Turbonator tune defines 1.4&ndash;4.6&nbsp;KB of a 16/32&nbsp;KB address space. The
+firmware is not in the file. So for these documents the header reads
+<strong>Tune file: &hellip; &middot; no ROM image</strong>, the checksum indicator is hidden
+rather than shown as &ldquo;bad&rdquo; (there is nothing to sum, and &ldquo;bad&rdquo; would
+read as a fault in your tune), and Spool refuses to save one as a <code>.bin</code>.</p>
+
+<h2>Build ROM</h2>
+
+<p><strong>File &rarr; Build ROM (.bin)&hellip;</strong> assembles the open tune against the
+firmware source it names in <code>;mpassmfile</code> and writes a real, checksummed ROM.</p>
+
+<p>It builds what you are looking at, unsaved edits included, so you can try a change without
+committing to it first. The assembly runs in a temporary workspace that is deleted afterwards
+&mdash; nothing is written into your folder but the <code>.bin</code> you choose, which
+defaults to sitting beside the tune.</p>
+
+<p>Two things need to be in place: the matching <code>.asm</code> in the same folder as the
+tune, and an assembler. Spool finds MPTune's <code>MPAssm.exe</code> automatically if MPTune
+is installed, and otherwise asks you to point at one once and remembers it. If the assembly
+fails, you get the assembler's own error text, which names the line.</p>
+
+<p class=note><strong>Expect two bytes to differ from an MPTune build</strong> of the same
+tune: the <code>ChecksumFixupValue</code> table and the stored checksum, which come out
+swapped. That is arithmetic, not a fault &mdash; the checksum covers every byte, so moving
+one moves the other by the same amount in the opposite direction. Nothing in the firmware
+reads the fixup byte, and both ROMs carry a valid checksum. Spool's is the one whose
+calibration matches the tune it was built from.</p>
+
+<h2>Recovering firmware source from a listing</h2>
+
+<p>An assembler <code>.lst</code> is not a disassembly &mdash; it contains the complete source
+text, verbatim, including everything pulled in with <code>.include</code>. One listing per
+firmware version is therefore a full backup of that firmware's source.</p>
+
+<p>A new developer tool, <code>lstsplit</code>, unpicks one back into its <code>.asm</code> and
+<code>.tpl</code>. If a firmware source is ever lost, any ROM built with it can produce it
+again. Verified across every listing in the reference archive; one was checked byte for byte
+against the original, all 504,426 of them.</p>
+
+<h2>Fixes</h2>
+
+<ul>
+  <li><strong>A tune saved as a <code>.spool</code> project reopened as a ROM.</strong>
+      Projects record the image, and rehydrating one always produced a ROM-backed document
+      &mdash; which handed Save-as-<code>.bin</code> back on an image that was 94.5% filler.
+      Projects now record what they hold. Projects saved by an earlier build load as ROMs, as
+      they should, but a <em>tune</em> saved by one should be re-saved.</li>
+  <li>The Build ROM save dialog defaults beside the tune rather than wherever a file dialog
+      was last used.</li>
+</ul>
+
+<p class=note>None of this has been run on an engine. The bytes and the checksum are verified
+against the toolchain's own output; &ldquo;assembles correctly&rdquo; and &ldquo;runs
+correctly&rdquo; are different claims.</p>
